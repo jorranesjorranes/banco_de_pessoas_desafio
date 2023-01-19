@@ -3,12 +3,10 @@ package com.desafio.bancodepessoas.entities;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.FetchType;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -18,19 +16,24 @@ import jakarta.persistence.Table;
 public class PessoaModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String dataDeNascimento;
 	
-	@OneToMany(mappedBy = "pessoaModel", fetch = FetchType.LAZY)
-	private List<EnderecoPessoaModel> endereços;
+	@OneToMany(mappedBy = "pessoaModel", cascade = CascadeType.PERSIST)
+	private List<EnderecoPessoaModel> enderecos;
 
-	public PessoaModel(Integer id, String nome, String dataDeNascimento, List<EnderecoPessoaModel> endereços) {
+	public PessoaModel() {
+		
+	}
+	
+	public PessoaModel(Integer id, String nome, String dataDeNascimento, List<EnderecoPessoaModel> enderecos) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
-		this.endereços = endereços;
+		this.enderecos = enderecos;
 	}
 
 	public Integer getId() {
@@ -57,12 +60,12 @@ public class PessoaModel {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
-	public List<EnderecoPessoaModel> getEndereços() {
-		return endereços;
+	public List<EnderecoPessoaModel> getEnderecos() {
+		return enderecos;
 	}
 
-	public void setEndereços(List<EnderecoPessoaModel> endereços) {
-		this.endereços = endereços;
+	public void setEnderecos(List<EnderecoPessoaModel> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override
@@ -81,5 +84,5 @@ public class PessoaModel {
 		PessoaModel other = (PessoaModel) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }

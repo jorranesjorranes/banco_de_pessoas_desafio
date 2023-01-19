@@ -5,6 +5,9 @@ import java.util.Objects;
 import com.desafio.bancodepessoas.enums.EnderecoPessoaEnum;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,22 +19,26 @@ import jakarta.persistence.Table;
 public class EnderecoPessoaModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String logradouro;
 	private Integer cep;
 	private Integer numero;
 	private String cidade;
+	
+	@Enumerated(EnumType.STRING)
 	private EnderecoPessoaEnum enderecoPessoaEnum;
 	
-	@ManyToOne
+//	@JoinColumn(name = "pessoaModel_id")
+	@ManyToOne(fetch = FetchType.LAZY)
 	private PessoaModel pessoaModel;
 
+	public EnderecoPessoaModel() {
+		
+	}
 	
-
 	public EnderecoPessoaModel(Integer id, String logradouro, Integer cep, Integer numero, String cidade,
 			EnderecoPessoaEnum enderecoPessoaEnum, PessoaModel pessoaModel) {
-		super();
 		this.id = id;
 		this.logradouro = logradouro;
 		this.cep = cep;
