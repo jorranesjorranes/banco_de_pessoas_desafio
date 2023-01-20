@@ -1,5 +1,6 @@
 package com.desafio.bancodepessoas.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,13 +17,13 @@ import jakarta.persistence.Table;
 public class PessoaModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String nome;
 	private String dataDeNascimento;
 	
-	@OneToMany(mappedBy = "pessoaModel", cascade = CascadeType.PERSIST)
-	private List<EnderecoPessoaModel> enderecos;
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private List<EnderecoPessoaModel> enderecos = new ArrayList<>();
 
 	public PessoaModel() {
 		

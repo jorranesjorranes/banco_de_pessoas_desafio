@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.desafio.bancodepessoas.enums.EnderecoPessoaEnum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -19,7 +21,7 @@ import jakarta.persistence.Table;
 public class EnderecoPessoaModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String logradouro;
 	private Integer cep;
@@ -29,23 +31,24 @@ public class EnderecoPessoaModel {
 	@Enumerated(EnumType.STRING)
 	private EnderecoPessoaEnum enderecoPessoaEnum;
 	
-//	@JoinColumn(name = "pessoaModel_id")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private PessoaModel pessoaModel;
-
+	@JoinColumn(name = "pessoa_id")
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private PessoaModel pessoa;
+	
 	public EnderecoPessoaModel() {
 		
 	}
-	
+
 	public EnderecoPessoaModel(Integer id, String logradouro, Integer cep, Integer numero, String cidade,
-			EnderecoPessoaEnum enderecoPessoaEnum, PessoaModel pessoaModel) {
+			EnderecoPessoaEnum enderecoPessoaEnum, PessoaModel pessoa) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.cep = cep;
 		this.numero = numero;
 		this.cidade = cidade;
 		this.enderecoPessoaEnum = enderecoPessoaEnum;
-		this.pessoaModel = pessoaModel;
+		this.pessoa = pessoa;
 	}
 
 	public Integer getId() {
@@ -96,12 +99,12 @@ public class EnderecoPessoaModel {
 		this.enderecoPessoaEnum = enderecoPessoaEnum;
 	}
 
-	public PessoaModel getPessoaModel() {
-		return pessoaModel;
+	public PessoaModel getPessoa() {
+		return pessoa;
 	}
 
-	public void setPessoaModel(PessoaModel pessoaModel) {
-		this.pessoaModel = pessoaModel;
+	public void setPessoa(PessoaModel pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@Override
