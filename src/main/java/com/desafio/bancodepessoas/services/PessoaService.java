@@ -43,13 +43,13 @@ public class PessoaService {
 	}
 
 	private void updateData(PessoaModel entity, PessoaModel obj) {
-		if(entity.getNome() != null) {
+		if(obj.getNome() != null) {
 			entity.setNome(obj.getNome());
 		}
-		if(entity.getDataDeNascimento() != null) {
+		if(obj.getDataDeNascimento() != null) {
 		entity.setDataDeNascimento(obj.getDataDeNascimento());
 		}
-		if(!entity.getEnderecos().isEmpty()) {
+		if(!obj.getEnderecos().isEmpty()) {
 			entity.setEnderecos(obj.getEnderecos());			
 		}
 	}
