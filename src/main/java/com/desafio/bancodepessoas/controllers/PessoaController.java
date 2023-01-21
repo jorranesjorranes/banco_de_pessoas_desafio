@@ -39,17 +39,11 @@ public class PessoaController {
     	return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.save(pessoa)); 		
     }    	      
     
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateGestor(@PathVariable(value = "id") Integer id,
-                                                    @RequestBody @Valid PessoaModel pessoa){
-        Optional<PessoaModel> pessoaOptional = pessoaService.findById(id);
-        if (!pessoaOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada.");
-        }
-        pessoa = pessoaOptional.get();
-        pessoa.setId(pessoaOptional.get().getId());
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.save(pessoa));
-    }
+    @PutMapping(value = "/{id}")
+	public ResponseEntity<PessoaModel> update(@PathVariable Integer id, @RequestBody PessoaModel obj) {
+		obj = pessoaService.update(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
     
     @DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable(value = "id") Integer id) {

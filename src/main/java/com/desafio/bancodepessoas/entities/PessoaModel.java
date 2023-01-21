@@ -30,7 +30,6 @@ public class PessoaModel {
 	}
 	
 	public PessoaModel(Integer id, String nome, String dataDeNascimento, List<EnderecoPessoaModel> enderecos) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataDeNascimento = dataDeNascimento;
